@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b12">
+  <title>Behruz Ergashev — Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #080b12;
+      --surface: rgba(18, 24, 36, .88);
+      --surface2: #151d2b;
+      --text: #f5f7fb;
+      --muted: #a8b3c5;
+      --line: rgba(255,255,255,.1);
+      --cyan: #51d9ed;
+      --violet: #9275ff;
+      --green: #24d477;
+      --blue: #249eff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 12% 4%, #173b4d, transparent 35%),
+        radial-gradient(ellipse at 90% 30%, #29204d, transparent 30%),
+        #080b12;
+    }
+
+    .container {
+      width: min(100% - 32px, 1000px);
+      margin: auto;
+    }
+
+    /* Yuqori menyu */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: #07101b;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .theme {
+      border: 1px solid var(--line);
+      background: #ffffff10;
+      color: var(--text);
+      border-radius: 50px;
+      padding: 10px 15px;
+    }
+
+    /* Asosiy profil */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 45px 0 40px;
+      overflow: hidden;
+    }
+
+    .hero-art {
+      position: absolute;
+      inset: 0 -10vw;
+      z-index: -1;
+      opacity: .45;
+      background:
+        linear-gradient(
+          to bottom,
+          #080b1220,
+          #080b1260,
+          var(--bg)
+        ),
+        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85")
+        center / cover;
+      mask-image: linear-gradient(black 0%, black 50%, transparent);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 15px;
+      margin-bottom: 23px;
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      background: #101723cc;
+      color: #c5d4e7;
+      font-size: 13px;
+    }
+
+    .avatar-wrap {
+      width: 150px;
+      height: 150px;
+      padding: 4px;
+      margin: auto auto 22px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--cyan),
+        var(--violet),
+        #f1b9ff,
+        var(--cyan)
+      );
+      box-shadow: 0 18px 55px #0008;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #0c1420;
+    }
+
+    h1 {
+      font-size: clamp(34px, 7vw, 68px);
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin: 0;
+    }
+
+    .gradient-text {
+      background: linear-gradient(
+        95deg,
+        #ffffff,
+        #a9eaff,
+        #b7a7ff
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .role {
+      color: var(--muted);
+      font-size: clamp(15px, 3vw, 20px);
+      margin: 17px 0 10px;
+    }
+
+    .intro {
+      max-width: 570px;
+      margin: auto;
+      color: #c0cad8;
+    }
+
+    /* Tugmalar */
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 14px 20px;
+      border: 1px solid transparent;
+      border-radius: 15px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #24d477, #0ca95c);
+      color: #03150c;
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #39c6ff, #1688f4);
+      color: white;
+    }
+
+    .btn-glass {
+      background: #111b29e0;
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    /* Kichik kartalar */
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      padding: 15px 10px;
+      border: 1px solid var(--line);
+      background: #101722c9;
+      border-radius: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Umumiy bo'limlar */
+    .section {
+      margin-top: 23px;
+    }
+
+    .panel {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background: var(--surface);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 60px #0002;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin: 5px 0 0;
+      font-size: 14px;
+    }
+
+    .section-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-right: 9px;
+      border-radius: 12px;
+      background: #ffffff0b;
+      border: 1px solid var(--line);
+    }
+
+    /* Shaxsiy ma'lumotlar */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .fact {
+      min-width: 0;
+      padding: 4px 16px;
+      border-right: 1px solid var(--line);
+    }
+
+    .fact:first-child {
+      padding-left: 0;
+    }
+
+    .fact:last-child {
+      border: 0;
+      padding-right: 0;
+    }
+
+    .fact-icon {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .fact strong {
+      display: block;
+      overflow-wrap: anywhere;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* Iqtibos */
+    .quote {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-height: 145px;
+      background:
+        linear-gradient(90deg, #111b29f2, #111b29a8),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85")
+        center / cover;
+    }
+
+    .quote-line {
+      flex: none;
+      width: 4px;
+      height: 65px;
+      border-radius: 10px;
+      background: linear-gradient(var(--cyan), var(--violet));
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(17px, 3vw, 22px);
+      font-style: italic;
+    }
+
+    .quote small {
+      display: block;
+      color: #aabbd0;
+      margin-top: 8px;
+    }
+
+    /* Qiziqishlar */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--surface2);
+      color: #dbe5f2;
+      font-size: 14px;
+    }
+
+    /* Ijtimoiy tarmoqlar */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .social {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #ffffff05;
+      transition: .2s;
+    }
+
+    .social:hover {
+      transform: translateY(-3px);
+      border-color: #5b9ab8;
+    }
+
+    .social-logo {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+      background: #1c2c40;
+      font-size: 22px;
+    }
+
+    .social-title {
+      font-weight: 700;
+    }
+
+    .social-sub {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .arrow {
+      margin-left: auto;
+      color: var(--muted);
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .contact-row p {
+      color: var(--muted);
+      margin: 5px 0 0;
+    }
+
+    footer {
+      padding: 32px 0 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Kunduzgi rejim */
+    .light {
+      --bg: #edf3f8;
+      --surface: rgba(255,255,255,.92);
+      --surface2: #f2f6fa;
+      --text: #152233;
+      --muted: #627185;
+      --line: rgba(16,40,64,.12);
+    }
+
+    .light .ambient {
+      background:
+        radial-gradient(ellipse at 12% 4%, #d1f0f9, transparent 35%),
+        radial-gradient(ellipse at 90% 30%, #e2d9ff, transparent 30%),
+        var(--bg);
+    }
+
+    .light .stat,
+    .light .btn-glass,
+    .light .eyebrow {
+      background: #ffffffed;
+      color: var(--text);
+    }
+
+    .light .intro {
+      color: #243449;
+    }
+
+    .light .pill {
+      color: #233247;
+    }
+
+    /* Telefon uchun moslashuv */
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 24px, 1000px);
+      }
+
+      .status {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-top: 35px;
+      }
+
+      .avatar-wrap {
+        width: 125px;
+        height: 125px;
+      }
+
+      .facts {
+        grid-template-columns: 1fr 1fr;
+        gap: 22px 0;
+      }
+
+      .fact {
+        padding: 2px 12px;
+      }
+
+      .fact:nth-child(2) {
+        border-right: 0;
+      }
+
+      .fact:nth-child(3) {
+        padding-left: 0;
+      }
+
+      .fact:nth-child(4) {
+        padding-right: 0;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .status {
+        display: none;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .btn {
+        padding: 12px 8px;
+        font-size: 13px;
+      }
+
+      .hero-actions .btn-glass {
+        grid-column: 1 / -1;
+      }
+
+      .mini-stats {
+        gap: 6px;
+      }
+
+      .stat {
+        padding: 12px 4px;
+      }
+
+      .stat strong {
+        font-size: 16px;
+      }
+
+      .stat span {
+        font-size: 11px;
+      }
+
+      .fact strong {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ambient"></div>
+
+  <!-- Yuqori menyu -->
+  <nav class="container nav">
+    <a class="brand" href="#">
+      <span class="brand-mark">B</span>
+      BEH<span style="color:var(--cyan)">.</span>
+    </a>
+
+    
+
+    <button class="theme" id="themeBtn" type="button">
+      ☾
+    </button>
+  </nav>
+
+  <!-- Asosiy profil -->
+  <header class="container hero">
+    <div class="hero-art"></div>
+
+    <div class="eyebrow">✦ Shaxsiy portfolio · 2026</div>
+
+    <div class="avatar-wrap">
+      <!-- Profil rasmini shu yerdan almashtiring -->
+      <img
+        class="avatar"
+        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43b?auto=format&fit=crop&w=500&q=90"
+        alt="Behruz profil rasmi"
+      >
+    </div>
+
+    <h1>
+      <span class="gradient-text">Behruz Ergashev</span>
+    </h1>
+
+    <p class="role">
+      Talaba / Bo‘lajak dasturchi / Yangi g‘oyalar izlovchisi
+    </p>
+
+    <p class="intro">
+      G‘oyalarni foydali raqamli mahsulotlarga aylantirishni
+      o‘rganmoqdaman. Har kuni yangi bilim va yangi qadam.
+    </p>
+
+    <div class="hero-actions">
+      <!-- TELEFON RAQAMINGIZNI ALMASHTIRING -->
+      <a class="btn btn-primary" href="tel:+998916434286">
+        ☎ Qo‘ng‘iroq qilish
+      </a>
+
+      <!-- TELEGRAM USERNAME'INGIZNI ALMASHTIRING -->
+      <a
+        class="btn btn-blue"
+        href="https://t.me/axrorivic_1"
+        target="_blank"
+        rel="noopener"
+      >
+        ➤ Telegram’da yozish
+      </a>
+
+      <button class="btn btn-glass" id="shareBtn" type="button">
+        ↗ Havolani ulashish
+      </button>
+    </div>
+
+    <div class="mini-stats">
+      <div class="stat">
+        <strong>Web</strong>
+        <span>Dasturlash</span>
+      </div>
+
+      <div class="stat">
+        <strong>Always</strong>
+        <span>O‘rganishda</span>
+      </div>
+
+      <div class="stat">
+        <strong>Next 🚀</strong>
+        <span>Katta maqsadlar</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Shaxsiy ma'lumotlar -->
+    <section class="section panel">
+      <div class="section-head">
+        <h2><span class="section-icon">✦</span>Men haqimda</h2>
+        <p>Qisqacha shaxsiy ma’lumotlar</p>
+      </div>
+
+      <div class="facts">
+        <div class="fact">
+          <span class="fact-icon">🎂</span>
+          <span class="label">Tug‘ilgan sana</span>
+          <strong>18.12.200</strong>
+        </div>
+
+        <div class="fact">
+          <span class="fact-icon">🎓</span>
+          <span class="label">Ta’lim</span>
+          <strong>Toshkent davlat iqtisodiyot universiteti</strong>
+        </div>
+
+        <div class="fact">
+          <span class="fact-icon">💻</span>
+          <span class="label">Yo‘nalish</span>
+          <strong>Dasturlash </strong>
+        </div>
+
+        <div class="fact">
+          <span class="fact-icon">📍</span>
+          <span class="label">Hudud</span>
+          <strong>Qashqadaryo, chiroqchi</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motivatsion qism -->
+    <section class="section panel quote">
+      <div class="quote-line"></div>
+
+      <div>
+        <p>“Katta maqsadlar kichik qadamlardan boshlanadi.”</p>
+        <small>— maqsad sari doimo  oldinga</small>
+      </div>
+    </section>
+
+    <!-- Qiziqishlar -->
+    <section class="section panel">
+      <div class="section-head">
+        <h2><span class="section-icon">✧</span>Qiziqishlarim</h2>
+        <p>Menga yoqadigan yo‘nalishlar</p>
+      </div>
+
+      <div class="pills">
+        <span class="pill">💻  dasturlash</span>
+        <span class="pill">🐍 Python</span>
+        <span class="pill">⚙️ C++</span>
+        <span class="pill">✈️ Telegram</span>
+        <span class="pill">◈ UI/UX dizayn</span>
+        <span class="pill">📚 Kitoblar</span>
+        <span class="pill">🏔️ Sayohat</span>
+      </div>
+    </section>
+
+    <!-- Ijtimoiy tarmoqlar -->
+    <section class="section panel">
+      <div class="section-head">
+        <h2><span class="section-icon">↗</span>Mening sahifalarim</h2>
+        <p>Boshqa platformalarda ham toping</p>
+      </div>
+
+      <div class="social-grid">
+        <a
+          class="social"
+          href="https://instagram.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="social-logo">📸</span>
+          <span>
+            <span class="social-title">Instagram</span>
+            <span class="social-sub">Rasmlar va kundalik</span>
+          </span>
+          <span class="arrow">↗</span>
+        </a>
+
+        <a
+          class="social"
+          href="https://github.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="social-logo">⌘</span>
+          <span>
+            <span class="social-title">GitHub</span>
+            <span class="social-sub">Kod va loyihalar</span>
+          </span>
+          <span class="arrow">↗</span>
+        </a>
+
+        <a
+          class="social"
+          href="https://t.me/axrorivic_1"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="social-logo">➤</span>
+          <span>
+            <span class="social-title">Telegram</span>
+            <span class="social-sub"> xabar yuborish</span>
+          </span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Aloqa -->
+    <section class="section panel contact-row">
+      <div>
+        <h2>nima gap</h2>
+        <p>prosta sayt.</p>
+      </div>
+
+      <a
+        class="btn btn-blue"
+        href="https://t.me/axrorivic_1"
+        target="_blank"
+        rel="noopener"
+      >
+        Xabar yuborish ↗
+      </a>
+    </section>
+
+    <footer>
+      <div>portfoliya</div>
+      <p>© <span id="year"></span> Behruz Ergashev · Doim oldinga 🚀</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Tungi va kunduzgi rejim
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", function () {
+      document.body.classList.toggle("light");
+
+      const lightMode = document.body.classList.contains("light");
+
+      themeBtn.textContent = lightMode ? "☀" : "☾";
+
+      document.querySelector('meta[name="theme-color"]').content =
+        lightMode ? "#edf3f8" : "#080b12";
+    });
+
+    // Sayt havolasini ulashish
+    document.getElementById("shareBtn").addEventListener(
+      "click",
+      async function () {
+        const shareData = {
+          title: document.title,
+          text: "Mening shaxsiy sahifam",
+          url: location.href
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (error) {
+            if (error.name !== "AbortError") {
+              alert("Havolani ulashib bo‘lmadi.");
+            }
+          }
+        } else {
+          try {
+            await navigator.clipboard.writeText(location.href);
+            alert("Sayt havolasi nusxalandi!");
+          } catch {
+            prompt("Sayt havolasini nusxalang:", location.href);
+          }
+        }
+      }
+    );
+
+    // Joriy yilni avtomatik chiqarish
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
